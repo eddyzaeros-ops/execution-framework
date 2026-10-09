@@ -1,0 +1,36 @@
+# 嵌入與 rerank 節點（單機 GPU）
+services:
+  embed:
+    image: ${VLLM_IMAGE}
+    restart: unless-stopped
+    ipc: host
+    volumes:
+      - ${MODELS_DIR}:/models:ro
+    environment:
+      - HF_HUB_OFFLINE=1
+      - CUDA_VISIBLE_DEVICES=0
+    command: >
+      --model ${EMBED_MODEL} --served-model-name ${EMBED_SERVED_NAME}
+      --task embed --port 8001 --gpu-memory-utilization 0.40
+    ports: ["8001:8001"]
+    deploy:
+      resources:
+        reservations:
+          devices: [{driver: nvidia, capabilities: [gpu], device_ids: ["0"]}]
+
+  rerank:
+    image: ${VLLM_IMAGE}
+    restart: unless-stopped
+    ipc: host
+    volumes:
+      - ${MODELS_DIR}:/models:ro
+    environment:
+      - HF_HUB_OFFLINE=1
+    command: >
+      --model ${RERANK_MODEL} --served-model-name ${RERANK_SERVED_NAME}
+      --task score --port 8002 --gpu-memory-utilization 0.40
+    ports: ["8002:8002"]
+    deploy:
+      resources:
+        reservations:
+          devices: [{driver: nvidia, capabilities: [gpu], device_ids: ["1"]}]

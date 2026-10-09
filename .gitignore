@@ -1,0 +1,11 @@
+# Dependencies and cache
+__pycache__/
+*.py[cod]
+*.class
+*.tmp
+*.temp
+~*
+.DS_Store
+Thumbs.db
+
+# Exclude generated conversation logs and folders from git if requested

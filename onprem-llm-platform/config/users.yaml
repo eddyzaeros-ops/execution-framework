@@ -1,0 +1,15 @@
+# API Key 只存 SHA256。產生方式：python tools/hash_key.py <明文 key>
+# 以下為測試帳號（明文 key：key-alice / key-bob / key-admin），正式環境務必更換。
+users:
+  - name: alice
+    level: 2
+    projects: [PRJ-A]
+    api_key_sha256: "87844ec0b0d738e89628640588acaa48537b814a5c4f9697e3b352d11ffedaef"
+  - name: bob
+    level: 1
+    projects: [PRJ-B]
+    api_key_sha256: "f031fc74d10cf0c1284dc15f679c18b1e8e05f9d1966adefba6c6463cdcef658"
+  - name: admin
+    level: 3
+    projects: [PRJ-A, PRJ-B, admin]
+    api_key_sha256: "fb6a4340832d100d793a6feade8a6237f67e294c39939921ccdd798ca376d2d8"

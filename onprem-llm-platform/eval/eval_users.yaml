@@ -1,0 +1,4 @@
+# 評估用帳號：評估身分名稱 -> 明文 API Key（只放在受控的評估機上）
+alice: key-alice
+bob: key-bob
+admin: key-admin

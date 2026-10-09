@@ -1,0 +1,29 @@
+# 服務節點：Qdrant + RAG API
+services:
+  qdrant:
+    image: ${QDRANT_IMAGE}
+    restart: unless-stopped
+    volumes:
+      - ./data/qdrant:/qdrant/storage
+    networks: [internal]
+
+  rag-api:
+    build: ../rag
+    image: onprem/rag-api:0.1
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      - USERS_FILE=/app/config/users.yaml
+      - INDEX_DIR=/app/data/index
+      - AUDIT_FILE=/app/data/audit/audit.jsonl
+    volumes:
+      - ../config:/app/config:ro
+      - ./data/rag:/app/data
+      - ../docs_corpus:/app/corpus:ro
+    ports:
+      - "8080:8080"
+    depends_on: [qdrant]
+    networks: [internal]
+
+networks:
+  internal: {}

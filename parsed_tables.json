@@ -1,0 +1,1542 @@
+{
+  "S2.T1": {
+    "caption": "Table 1 : The component map of a coding-agent harness: the seven subsystems, with the minimal and maximal implementations observed in the corpus.",
+    "rows": [
+      [
+        "Subsystem",
+        "Role",
+        "Minimal form",
+        "Maximal form",
+        "§"
+      ],
+      [
+        "Agent loop",
+        "Alternates inference with action execution; owns stop conditions and failure recovery",
+        "Mini-SWE-Agent : a linear while over one bash tool",
+        "OpenHands : event-sourced conversation over a persistent event log, with parallel action batches",
+        "6"
+      ],
+      [
+        "LLM integration",
+        "Speaks provider protocols; assembles the prompt; manages caching, thinking, routing",
+        "Mini-SWE-Agent : one LiteLLM call, one Jinja template",
+        "Hermes : five owned transports, 29 provider profiles; Codex : server-delivered model catalog",
+        "7"
+      ],
+      [
+        "Tools & actions",
+        "Defines and executes what the agent can do, file editing above all",
+        "Mini-SWE-Agent : bash only",
+        "Claude Code : 43 typed tools with deferred loading; Codex : tool calls as V8-executed code",
+        "8"
+      ],
+      [
+        "Memory & context",
+        "Rations the context window; persists knowledge across turns and sessions",
+        "Mini-SWE-Agent : unbounded linear history",
+        "Codex : agent-maintained cross-session memory pipeline; Gemini CLI : graph-based context distillation",
+        "9"
+      ],
+      [
+        "Safety & permissions",
+        "Decides what runs, what asks, what is forbidden; isolates execution",
+        "Mini-SWE-Agent : cost and step limits",
+        "Codex : policy rules + LLM approval reviewer + three-platform OS sandbox",
+        "10"
+      ],
+      [
+        "Orchestration",
+        "Spawns and coordinates sub-agents; connects to other agents",
+        "Aider : none (single-agent by design)",
+        "Claude Code : recursive composition; Omnigent : cross-vendor coordination (meta-layer)",
+        "11"
+      ],
+      [
+        "Extensibility",
+        "Lets users and ecosystems add capability: config, hooks, skills, plugins, MCP",
+        "Mini-SWE-Agent : structural typing (Python protocols)",
+        "Pi : everything-is-an-extension runtime; Codex : marketplace-distributed plugins",
+        "12"
+      ]
+    ]
+  },
+  "S3.T2": {
+    "caption": "Table 2 : The broader coding-agent harness landscape, July 2026 (systems not in the study corpus). Star counts are approximate GitHub stars as of 2026-07-10; closed-source systems marked “—”.",
+    "rows": [
+      [
+        "Harness",
+        "Vendor",
+        "OSS",
+        "Stars",
+        "Note"
+      ],
+      [
+        "Antigravity CLI",
+        "Google",
+        "✗",
+        "—",
+        "Announced May 2026 as Gemini CLI ’s successor; closed-source Go binary; consumer service cut over June 18"
+      ],
+      [
+        "Copilot CLI",
+        "GitHub/Microsoft",
+        "✗",
+        "—",
+        "GA Feb. 2026; autopilot + fleet modes; deep GitHub integration"
+      ],
+      [
+        "Grok Build",
+        "xAI (SpaceX)",
+        "✗",
+        "—",
+        "May 2026; Rust; plan-first loop; ACP server; AGENTS.md/MCP/skills"
+      ],
+      [
+        "Cursor CLI",
+        "Anysphere",
+        "✗",
+        "—",
+        "IDE-harness parity in the terminal; $60B SpaceX acquisition pending"
+      ],
+      [
+        "Kiro CLI",
+        "Amazon/AWS",
+        "✗",
+        "—",
+        "ex-Q Developer; spec-driven development identity"
+      ],
+      [
+        "Cline",
+        "Cline Bot Inc.",
+        "✓",
+        "~64k",
+        "5M+ IDE installs; plan/act workflow; Roo/Kilo fork family"
+      ],
+      [
+        "Goose",
+        "Block / Linux Found.",
+        "✓",
+        "~29k",
+        "Rust; native MCP; donated to Agentic AI Foundation Apr. 2026"
+      ],
+      [
+        "Claw Code",
+        "Community",
+        "✓",
+        "~100k+",
+        "Self-described clean-room Python/Rust reimplementation of Claude Code"
+      ],
+      [
+        "Crush",
+        "Charmbracelet",
+        "✓",
+        "~26k",
+        "Go-native, LSP-aware TUI; ex-opencode (Go) lineage"
+      ],
+      [
+        "Qwen Code",
+        "Alibaba",
+        "✓",
+        "~26k",
+        "Gemini CLI fork for Qwen coder models"
+      ],
+      [
+        "Kimi CLI",
+        "Moonshot AI",
+        "✓",
+        "~9k",
+        "Skills, MCP, “agent swarm” parallelism"
+      ],
+      [
+        "Trae Agent",
+        "ByteDance",
+        "✓",
+        "~12k",
+        "Research-friendly Python CLI agent"
+      ],
+      [
+        "Droid",
+        "Factory AI",
+        "✗",
+        "—",
+        "Terminal-Bench SOTA Sept. 2025; enterprise CI focus"
+      ],
+      [
+        "Amp",
+        "Sourcegraph",
+        "✗",
+        "—",
+        "Ad-supported free tier; deep-mode research workflows"
+      ],
+      [
+        "Continue CLI",
+        "Continue.dev",
+        "✓",
+        "~30k",
+        "Multi-surface (IDE+CLI); local/privacy focus"
+      ]
+    ]
+  },
+  "S4.T3": {
+    "caption": "Table 3 : System selection criteria. The top eleven rows are the study corpus; Omnigent is analyzed as a meta-harness contrast point only.",
+    "rows": [
+      [
+        "System",
+        "Provider",
+        "Language",
+        "Version",
+        "Selection Rationale"
+      ],
+      [
+        "OpenHands",
+        "OpenHands (ex-All-Hands-AI)",
+        "Python",
+        "V1 SDK v1.34.0 (Jul. 2026)",
+        "Mature modular framework"
+      ],
+      [
+        "Aider",
+        "Community (P. Gauthier)",
+        "Python",
+        "v0.86.3.dev (May 2026; maintenance mode)",
+        "Polymorphic edit strategies"
+      ],
+      [
+        "Claude Code",
+        "Anthropic",
+        "TypeScript",
+        "source snapshot Mar. 2026 (binary 2.1.206, Jul. 2026)",
+        "Anthropic’s flagship agent"
+      ],
+      [
+        "Codex",
+        "OpenAI",
+        "Rust",
+        "rust-v0.144.1 (Jul. 2026)",
+        "OpenAI’s flagship agent"
+      ],
+      [
+        "Gemini CLI",
+        "Google",
+        "TypeScript",
+        "v0.50.0 (Jul. 2026)",
+        "Google’s flagship agent"
+      ],
+      [
+        "Mistral Vibe",
+        "Mistral AI",
+        "Python",
+        "v2.19.1 (Jul. 2026)",
+        "Mistral’s flagship agent"
+      ],
+      [
+        "Mini-SWE-Agent",
+        "Princeton/Stanford",
+        "Python",
+        "v2.4.5 (Jul. 2026)",
+        "Minimalist research baseline"
+      ],
+      [
+        "Hermes",
+        "Nous Research",
+        "Python",
+        "0.18.2 (rel. 2026.7.7.2, Jul. 2026)",
+        "Self-improving skills; hybrid personal/SWE harness"
+      ],
+      [
+        "Pi",
+        "earendil-works (M. Zechner)",
+        "TypeScript",
+        "v0.80.6 (Jul. 2026)",
+        "Minimal core, maximal extensibility"
+      ],
+      [
+        "OpenCode",
+        "Anomaly (ex-SST)",
+        "TypeScript",
+        "v1.17.18 (Jul. 2026)",
+        "Client/server architecture; most-starred dedicated coding agent"
+      ],
+      [
+        "OpenClaw",
+        "Community",
+        "TypeScript",
+        "v2026.6.11 (Jul. 2026)",
+        "Contrast: multi-channel assistant"
+      ],
+      [
+        "Omnigent",
+        "Databricks",
+        "Python",
+        "v0.4.0 (Jul. 2026)",
+        "Contrast: meta-harness above harnesses"
+      ]
+    ]
+  },
+  "S5.T4": {
+    "caption": "Table 4 : High-level comparison of the eleven systems, with each system’s signature capability. Claude Code cells here and in the other July-dated tables reflect the March-2026 source snapshot, the newest source available to us; the shipping binary (2.1.206, July 2026) may differ.",
+    "rows": [
+      [
+        "System",
+        "Lang.",
+        "Scale",
+        "Provider",
+        "Tools",
+        "Multi-ag.",
+        "Sandbox",
+        "UI",
+        "Signature"
+      ],
+      [
+        "OpenHands",
+        "Python",
+        "Medium",
+        "Multi",
+        "25+",
+        "Yes",
+        "Docker/ Apptainer/ remote",
+        "Web+CLI +SDK",
+        "Resource-locked parallel tools; hosts rival harnesses as ACP backends"
+      ],
+      [
+        "Aider",
+        "Python",
+        "Small",
+        "Multi",
+        "13 fmt",
+        "No",
+        "None",
+        "CLI",
+        "13 polymorphic edit formats; the corpus’s only ranked repo map"
+      ],
+      [
+        "Claude Code",
+        "TS",
+        "Large",
+        "Anthropic",
+        "43",
+        "Yes",
+        "Opt-in runtime + worktree",
+        "CLI",
+        "Deferred tool loading; prompt-cache-sharing forks; the reference others copy"
+      ],
+      [
+        "Codex",
+        "Rust",
+        "Very lg.",
+        "OpenAI",
+        "25–30",
+        "Yes",
+        "Native (3 OS)",
+        "CLI/TUI",
+        "Agent-maintained cross-session memory; tool calls as V8-executed code"
+      ],
+      [
+        "Gemini CLI",
+        "TS",
+        "Very lg.",
+        "Google",
+        "35+",
+        "Yes",
+        "Native (3 OS)",
+        "CLI/TUI",
+        "Model routing as runtime scheduling; the corpus’s only A2A server"
+      ],
+      [
+        "Mistral Vibe",
+        "Python",
+        "Small",
+        "Mistral+",
+        "12+",
+        "Yes",
+        "Worktree opt.",
+        "CLI/TUI",
+        "Middleware-pipeline loop; rewind exposed over ACP"
+      ],
+      [
+        "Mini-SWE-Agent",
+        "Python",
+        "Tiny",
+        "Multi",
+        "1",
+        "No",
+        "Docker+",
+        "CLI",
+        "The 100-line floor: all seven subsystems, minimally"
+      ],
+      [
+        "Hermes",
+        "Python",
+        "Very lg.",
+        "Multi (owned)",
+        "69",
+        "Yes",
+        "6 pluggable backends",
+        "CLI/TUI/ Web+28 ch.",
+        "Self-improving skill loop; lineage compaction; verify-on-stop"
+      ],
+      [
+        "Pi",
+        "TS",
+        "Medium",
+        "Multi, 35 prov.",
+        "7",
+        "Ext.",
+        "None (by design)",
+        "CLI/TUI",
+        "Everything-is-an-extension core; session-tree version control"
+      ],
+      [
+        "OpenCode",
+        "TS",
+        "Large",
+        "Multi",
+        "17",
+        "Yes",
+        "None (policy)",
+        "Client/ server",
+        "Client/server harness; syntax-aware command permissioning"
+      ],
+      [
+        "OpenClaw",
+        "TS",
+        "Large",
+        "Multi",
+        "109+",
+        "Yes",
+        "None",
+        "Multi-ch.",
+        "Gateway delegation; Active-Memory sub-agent before each reply"
+      ]
+    ]
+  },
+  "S6.T5": {
+    "caption": "Table 5 : Detailed agent loop characteristics across the eleven systems.",
+    "rows": [
+      [
+        "System",
+        "Loop Type",
+        "Concurrency",
+        "Stuck Detect.",
+        "Stop Cond."
+      ],
+      [
+        "OpenHands",
+        "Event-sourced conversation",
+        "Parallel batches (resource locks; limit default 1)",
+        "5 scenarios",
+        "State=FINISHED"
+      ],
+      [
+        "Aider",
+        "Generator + reflect",
+        "Sequential",
+        "Max reflections",
+        "stream end, no reflection pending"
+      ],
+      [
+        "Claude Code",
+        "Streaming + batch",
+        "Safety-partitioned",
+        "None (manual)",
+        "end_turn"
+      ],
+      [
+        "Codex",
+        "Tokio async SM",
+        "FuturesOrdered",
+        "None",
+        "end_turn"
+      ],
+      [
+        "Gemini CLI",
+        "Async-gen + scheduler",
+        "Parallel; edits forced sequential; model-visible wait_for_previous",
+        "Hybrid: SHA-256 + LLM check after 30 turns",
+        "end_turn / 100"
+      ],
+      [
+        "Mistral Vibe",
+        "Async + middleware",
+        "asyncio.create_task",
+        "Middleware (turn/price/token/compact)",
+        "end_turn"
+      ],
+      [
+        "Mini-SWE-Agent",
+        "Linear while",
+        "Sequential",
+        "step limit; format-error cap; wall clock",
+        "exit message"
+      ],
+      [
+        "Hermes",
+        "Budgeted while + stop-guards",
+        "Parallel batches (8 workers, safety-gated)",
+        "SHA-256 call signatures (warn-first)",
+        "text response unless verify-on-stop vetoes; 90-iter budget"
+      ],
+      [
+        "Pi",
+        "Functional while + steer/followUp queues",
+        "Promise.all ; per-file mutation queue",
+        "None (by design)",
+        "end_turn (no cap)"
+      ],
+      [
+        "OpenCode",
+        "Log-as-queue while(true)",
+        "Parallel, uncapped",
+        "Doom-loop → permission ask",
+        "no tool calls; steps ∞"
+      ],
+      [
+        "OpenClaw",
+        "Event-driven ACP",
+        "RPC isolation",
+        "Rate limit",
+        "Session end"
+      ]
+    ]
+  },
+  "S7.T6": {
+    "caption": "Table 6 : Prompt engineering architectures across the eleven systems.",
+    "rows": [
+      [
+        "System",
+        "Architecture",
+        "Sections",
+        "Caching",
+        "Template"
+      ],
+      [
+        "OpenHands",
+        "PromptRegistry with cache tiers",
+        "18 named static sections (Soul, Role, Security, …) + dynamic block",
+        "STATIC/DYNAMIC two-block assembly; cache_control markers",
+        "Python; .j2 escape hatch"
+      ],
+      [
+        "Aider",
+        "Polymorphic CoderPrompts",
+        "Per-edit-format prompts, repo-map, examples",
+        "Anthropic markers",
+        "Python classes"
+      ],
+      [
+        "Claude Code",
+        "Modular sections with boundary",
+        "12–15 named sections, static/dynamic split",
+        "Blake2b hash, boundary marker",
+        "TypeScript"
+      ],
+      [
+        "Codex",
+        "Server-delivered per-model prompts",
+        "Capabilities, personality (user-templated), AGENTS.md, planning",
+        "thread_id cache key",
+        "Model-catalog data (bundled fallback)"
+      ],
+      [
+        "Gemini CLI",
+        "PromptProvider + capability gating",
+        "Base, tools, GEMINI.md (global/proj/ext), IDE ctx, memory, skills",
+        "None (rebuilt on model change)",
+        "TS snippets (modern/legacy)"
+      ],
+      [
+        "Mistral Vibe",
+        "Per-agent prompts + A/B variants",
+        "Base, tools, git status, date, subagent roster, scratchpad, AGENTS.md contents, agent override, skills",
+        "Git status cached",
+        "Markdown files (GrowthBook-selected variant)"
+      ],
+      [
+        "Mini-SWE-Agent",
+        "Jinja2 one-shot",
+        "system_template, instance_template",
+        "Anthropic markers",
+        "YAML-embedded"
+      ],
+      [
+        "Hermes",
+        "Three-tier assembly (stable/context/volatile), built once per session",
+        "~15 guidance blocks, model-family-gated",
+        "system_and_3 markers + bit-perfect prefix normalization",
+        "Python constants"
+      ],
+      [
+        "Pi",
+        "Single ~170-line builder; tool snippets co-vary with active toolset",
+        "Persona, tools, deduplicated guidelines, project context, skills XML, date, cwd",
+        "cache_control breakpoints + TTL tiers + waste audit",
+        "TS concatenation"
+      ],
+      [
+        "OpenCode",
+        "Model-family prompt matrix (9 base prompts by model-id substring)",
+        "Base, env block, AGENTS.md, MCP instructions, skills catalog",
+        "Six-dialect breakpoints; promptCacheKey =sessionID; system capped at 2 messages",
+        ".txt files"
+      ],
+      [
+        "OpenClaw",
+        "ACP translator",
+        "Session config, tool list, thinking level",
+        "Per-provider",
+        "Runtime config"
+      ]
+    ]
+  },
+  "S8.T7": {
+    "caption": "Table 7 : File editing strategies across the eleven systems (July 2026).",
+    "rows": [
+      [
+        "System",
+        "Format",
+        "Matching",
+        "Fallback",
+        "Innovation"
+      ],
+      [
+        "Claude Code",
+        "Exact string replacement",
+        "Unique substring in file",
+        "Error + context",
+        "Zod schema validation"
+      ],
+      [
+        "Codex",
+        "*** Begin/End Patch",
+        "Unified diff hunks",
+        "Hunk-level retry",
+        "Custom patch DSL; Lark-grammar-constrained variant"
+      ],
+      [
+        "Aider",
+        "13 formats (SEARCH/ REPLACE, udiff, diff-fenced, …)",
+        "Exact → fuzzy (dmp)",
+        "Similar line suggestions",
+        "RelativeIndenter"
+      ],
+      [
+        "OpenHands",
+        "str_replace_editor (5 cmds) + apply_patch + Gemini-ported edit",
+        "Exact unique match",
+        "Error message",
+        "undo_edit; three coexisting edit dialects"
+      ],
+      [
+        "Gemini CLI",
+        "edit (old/new string) + write_file",
+        "Cascading: exact → flexible → regex → fuzzy",
+        "LLM “edit fixer” subcall repairs the pair",
+        "LLM-assisted edit repair"
+      ],
+      [
+        "Mistral Vibe",
+        "Exact edit (old/new string, replace_all ) + create-only write_file",
+        "Exact unique substring",
+        "Tool error on ambiguity",
+        "Migrated off fuzzy SEARCH/REPLACE (Apr → Jul)"
+      ],
+      [
+        "Mini-SWE-Agent",
+        "sed/awk via bash",
+        "Regex-based",
+        "Shell error",
+        "None (model-driven)"
+      ],
+      [
+        "Hermes",
+        "One patch tool: SEARCH/REPLACE + V4A DSL (+ write_file )",
+        "9-strategy fuzzy chain (exact → … → block-anchor 0.50/0.70 → context-aware 0.80)",
+        "Closest-line suggestions; escalate to write_file after 3 failures",
+        "Two-phase validate-then-apply; backend-transparent shell file ops"
+      ],
+      [
+        "Pi",
+        "Multi-edit exact replacement ( edits[] , overlap rejection)",
+        "Exact → Unicode/whitespace canonicalization (no similarity threshold)",
+        "Uniqueness guidance error",
+        "Byte-fidelity overlay; async diff preview before execution"
+      ],
+      [
+        "OpenCode",
+        "Model-conditional: apply_patch DSL (GPT family) or SEARCH/REPLACE edit (others)",
+        "9-stage replacer cascade (Levenshtein 0.65) / 4-pass patch relaxation",
+        "Distinct not-found vs. ambiguous errors",
+        "Editing dialect swapped per model in the registry; LSP diagnostics appended to results"
+      ],
+      [
+        "OpenClaw",
+        "N/A",
+        "N/A",
+        "N/A",
+        "Not a code editor"
+      ]
+    ]
+  },
+  "S8.T8": {
+    "caption": "Table 8 : Execution sandboxing mechanisms (July 2026).",
+    "rows": [
+      [
+        "System",
+        "Mechanism",
+        "Isolation Level",
+        "Investment"
+      ],
+      [
+        "OpenHands",
+        "Workspace abstraction: Docker, Apptainer, remote-API, cloud workspaces (KVM passthrough app-side)",
+        "Process + filesystem + network",
+        "Substantial"
+      ],
+      [
+        "Codex",
+        "Bubblewrap (vendored, compiled in-tree) + Landlock legacy fallback (Linux), Seatbelt (macOS), restricted tokens (Windows)",
+        "OS-level namespaces + filesystem + network",
+        "Substantial"
+      ],
+      [
+        "Gemini CLI",
+        "Docker / Bubblewrap / gVisor / LXC (Linux), Seatbelt via sandbox-exec (macOS), restricted tokens (Windows); TOML policies",
+        "OS-level + per-mode policy + env scrubbing",
+        "Moderate"
+      ],
+      [
+        "Claude Code",
+        "Opt-in OS sandbox via Anthropic’s sandbox-runtime (Bubblewrap/Seatbelt) with network restrictions; git worktrees for branch isolation",
+        "OS-level (opt-in) + filesystem",
+        "Moderate"
+      ],
+      [
+        "Mini-SWE-Agent",
+        "Docker, Singularity, Bubblewrap (pluggable)",
+        "Configurable",
+        "Light"
+      ],
+      [
+        "Hermes",
+        "Six pluggable execution backends (local, Docker, SSH, Singularity, Modal, Daytona); local backend = policy floor, no OS primitives",
+        "Per-backend (container/VM); none locally",
+        "Delegated"
+      ],
+      [
+        "Mistral Vibe",
+        "None OS-level; opt-in --worktree branch isolation",
+        "Filesystem (branch-level, opt-in)",
+        "None"
+      ],
+      [
+        "Pi",
+        "None built-in, with documented rationale; opt-in extensions (Anthropic sandbox-runtime , QEMU micro-VM) via per-tool Operations seam",
+        "None by default",
+        "None (extension-space)"
+      ],
+      [
+        "OpenCode",
+        "None (permission rules + tree-sitter command parsing; shadow-git checkpoints; “sandbox” in-tree means worktrees)",
+        "None",
+        "None (policy-only)"
+      ],
+      [
+        "Aider",
+        "None (direct local execution)",
+        "None",
+        "None"
+      ],
+      [
+        "OpenClaw",
+        "None (local gateway execution)",
+        "None",
+        "None"
+      ]
+    ]
+  },
+  "S11.T9": {
+    "caption": "Table 9 : Multi-agent orchestration across the nine multi-agent systems ( Pi via its reference extension).",
+    "rows": [
+      [
+        "System",
+        "Mechanism",
+        "Isolation / inherit.",
+        "Communication",
+        "Depth / parallelism",
+        "Tool filtering"
+      ],
+      [
+        "OpenHands",
+        "task + delegate tools → separate conversations",
+        "Fresh event log per child; metrics synced back",
+        "Summary return; conversation tree navigation",
+        "Nesting supported / concurrent threads",
+        "Markdown frontmatter (tools, skills, permission mode)"
+      ],
+      [
+        "Claude Code",
+        "AgentTool + context fork",
+        "Forked context (6 dimensions), shared rendered prompt",
+        "Return + XML notifications",
+        "Recursive / true parallel",
+        "16-tool whitelist"
+      ],
+      [
+        "Codex",
+        "spawn_agent v1/v2 (per-model)",
+        "Thread tree; SpawnAgentForkMode",
+        "Session input queue with mailbox phases; typed InterAgentCommunication records",
+        "Depth-tracked / parallel + CSV fan-out",
+        "Inherited + filtered; TOML roles (explorer, awaiter)"
+      ],
+      [
+        "Gemini CLI",
+        "invoke_agent tool; registry defs",
+        "Isolated registries per instance",
+        "Symmetric local/remote session protocol; A2A RPC",
+        "Flat + remote / sequential in turn",
+        "Per-definition toolConfig"
+      ],
+      [
+        "Mistral Vibe",
+        "task tool → new AgentLoop",
+        "Fresh config + session dir; inherits permission store, scratchpad, hooks",
+        "Event forwarding",
+        "1 hop / sequential",
+        "Subagent-tagged profiles only (explore)"
+      ],
+      [
+        "Hermes",
+        "delegate_task in-process forks; Kanban swarm subprocesses",
+        "Fresh context, own task id; provider/creds inherited, no history",
+        "Spawn-time goal; streamed events; summary return; SQLite blackboard (swarm)",
+        "1 by default, orchestrator role unlocks nesting / 3 concurrent (pool)",
+        "Intersection with parent + 6-tool blocklist"
+      ],
+      [
+        "Pi (ext.)",
+        "Extension spawns pi --mode json -p OS processes",
+        "Hard process isolation; fresh context",
+        "Child JSONL stdout parsed for progress/cost",
+        "Unbounded (no counter) / pool of 4, max 8; sequential chain",
+        "Child --tools flag from agent frontmatter"
+      ],
+      [
+        "OpenCode",
+        "task tool → child Session (same loop)",
+        "parentID sessions; child inherits parent’s deny + external-directory rules",
+        "<task_result> XML; background results as synthetic user messages",
+        "Recursion off by default, opt-in unbounded / parallel",
+        "Permission rulesets (deny \"*\" hides tool)"
+      ],
+      [
+        "OpenClaw",
+        "ACP session spawn",
+        "Child processes; fresh session",
+        "ACP delta events",
+        "Recursive / parallel (RPC)",
+        "Session-scoped"
+      ]
+    ]
+  },
+  "S12.T10": {
+    "caption": "Table 10 : Skills support across the eleven systems. “Spec” indicates conformance with the agentskills.io specification ( SKILL.md + YAML frontmatter, name / description required).",
+    "rows": [
+      [
+        "System",
+        "Skills?",
+        "Discovery paths",
+        "Invocation",
+        "Spec / loading"
+      ],
+      [
+        "Claude Code",
+        "✓",
+        ".claude/skills/ , ~/.claude/skills/ , plus dynamic discovery on file edits gated by paths frontmatter",
+        "SkillTool (deferred); MCP prompts dedup’d via uniqBy on name",
+        "Custom (path-gated extension); hybrid eager + on-demand"
+      ],
+      [
+        "Codex",
+        "✓",
+        "core-skills/ + skills/ roots; plugin-provided skill roots",
+        "skills/list app-server RPC + TUI $ -mention; implicit-invocation detection",
+        "Custom Rust; metadata eager under a context-scaled token budget, body injected on $-mention or detected invocation; skills declare MCP/env dependencies that Codex auto-installs"
+      ],
+      [
+        "Gemini CLI",
+        "✓",
+        "~/.gemini/skills/ , .gemini/skills/ , .agents/skills/ , plus built-ins ( skill-creator , antigravity-support ); precedence workspace > > user > > built-in",
+        "ActivateSkill tool wraps skill in XML with available_resources tree; permission-confirmation UI",
+        "agentskills.io-aligned with isBuiltin extension; eager startup walk; path-traversal-hardened installs"
+      ],
+      [
+        "Mistral Vibe",
+        "✓",
+        ".agents/skills/ , .vibe/skills/ , ~/.vibe/skills/ , ~/.agents/skills/ , user skill_paths ; trust-gated project discovery",
+        "skill tool (deferred); user /skill-name invocations materialized as synthetic tool calls",
+        "Full agentskills.io compliance; remote registry client (versioned catalog); builtin self-awareness skill"
+      ],
+      [
+        "OpenHands",
+        "✓",
+        "{workdir,git-root}/.agents/skills/ , .openhands/skills/ (+legacy microagents); user equivalents + managed installs",
+        "Metadata in <available_skills> ; body on demand via builtin invoke_skill tool",
+        "agentskills.io flag; progressive disclosure ; PathTrigger rules on file-touch; server CRUD/sync/marketplace API; ingests AGENTS.md/.cursorrules as scoped rules"
+      ],
+      [
+        "Hermes",
+        "✓",
+        "~/.hermes/skills/ (seeded from 72 bundled; 102 more official skills installable via the Skills Hub) + read-only external_dirs",
+        "Three-tier progressive disclosure: index in prompt → skill_view → linked assets; skills double as slash commands",
+        "agentskills.io-compatible; trust-tiered Skills Hub (builtin/trusted/community) with pre-install scanning and quarantine; self-authoring via skill_manage"
+      ],
+      [
+        "Pi",
+        "✓",
+        "~/.pi/agent/skills/ , ~/.agents/skills/ , .pi/skills/ , .agents/skills/ (cwd to git root), packages, --skill ; project paths trust-gated",
+        "No dedicated tool: <available_skills> XML index; body loaded via the ordinary read tool; /skill:name expansion",
+        "agentskills.io, deliberately lenient (warns, still loads); disable-model-invocation gating"
+      ],
+      [
+        "OpenCode",
+        "✓",
+        "{skill,skills}/**/SKILL.md in config dirs, ~/.claude/skills , .claude/ , .agents/ walk-up, extra paths, remote URL registries (versioned index.json cache)",
+        "Native skill tool (deferred: catalog lists name+description only)",
+        "agentskills.io field set; per-skill permission gating"
+      ],
+      [
+        "OpenClaw",
+        "✓",
+        "~/.openclaw/skills/ , .agents/skills/ , plugin-provided, skills.load.extraDirs config",
+        "Injected as XML in system prompt; /skills slash command lists eligible",
+        "agentskills.io-compatible; gating via metadata.openclaw.requires ( bins , env , OS); governed installs (Skill Workshop approval flow, provenance-verified ClawHub)"
+      ],
+      [
+        "Aider",
+        "✗",
+        "—",
+        "—",
+        "—"
+      ],
+      [
+        "Mini-SWE-Agent",
+        "✗",
+        "—",
+        "—",
+        "—"
+      ]
+    ]
+  },
+  "S13.T11": {
+    "caption": "Table 11 : Catalog of 29 recurring architectural patterns (1/2): the April-edition seventeen, membership updated to July 2026.",
+    "rows": [
+      [
+        "Pattern",
+        "Description",
+        "Used By"
+      ],
+      [
+        "Event Sourcing",
+        "Actions/observations appended to a persistent event log",
+        "OpenHands , Pi (session log-as-tree), OpenCode (log-as-queue; v2 tables)"
+      ],
+      [
+        "Policy-as-Code",
+        "Safety rules as executable configurations",
+        "Codex (Starlark, with inline validated examples), Claude Code (hooks), Gemini CLI (TOML modes), Hermes (config-as-policy + hardline floor), OpenCode (rulesets), Pi (extension hooks)"
+      ],
+      [
+        "Recursive Composition",
+        "Agents spawn sub-agents with forked/linked context",
+        "Claude Code , Codex , OpenHands , OpenClaw ; config-gated in Hermes , opt-in in OpenCode"
+      ],
+      [
+        "Polymorphic Edits",
+        "Model-aware edit format/toolset selection",
+        "Aider (prompt factory), OpenCode (tool registry)"
+      ],
+      [
+        "Deferred Loading",
+        "Tools/skills hidden from prompt, discovered on demand",
+        "Claude Code , Codex (BM25 tool_search ), Hermes (BM25 bridge tools), + 8 skills implementations"
+      ],
+      [
+        "Template Method",
+        "Base class defines flow; subclasses override parse/format",
+        "Aider (Coder), OpenHands (Agent)"
+      ],
+      [
+        "Protocol Interfaces",
+        "Structural subtyping / interface seams for pluggable components",
+        "Mini-SWE-Agent , Pi (per-tool Operations remoting seam)"
+      ],
+      [
+        "LLM Summarization",
+        "LLM compresses conversation history",
+        "9 systems (all but Mini-SWE-Agent , Aider -partial)"
+      ],
+      [
+        "Stuck Detection",
+        "Automated detection of repetitive agent behavior",
+        "OpenHands (5 scenarios), Gemini CLI (hybrid hash+LLM), Hermes (warn-first signatures), OpenCode (doom-loop ask), Mini-SWE-Agent (format-error cap)"
+      ],
+      [
+        "Reflection Loop",
+        "Inner self-correction cycle with lint/test feedback",
+        "Aider ; cousins: Gemini CLI (edit fixer), OpenCode (LSP feedback)"
+      ],
+      [
+        "Prompt Caching",
+        "Cache-boundary prompt structure or session-key reuse",
+        "Claude Code , Codex , OpenHands (cache tiers), Hermes (prefix normalization), Pi (breakpoints+TTL), OpenCode (dialect fanout)"
+      ],
+      [
+        "Context Forking",
+        "Cloning parent state for sub-agent isolation",
+        "Claude Code , Codex , Hermes (cache-sharing background fork)"
+      ],
+      [
+        "Middleware Pipeline",
+        "Composable turn-level policies orthogonal to loop body",
+        "Mistral Vibe"
+      ],
+      [
+        "JIT Repo Context",
+        "Hierarchical Markdown context files auto-discovered + on-demand injection",
+        "Claude Code , Codex , Gemini CLI , Mistral Vibe , Hermes , Pi , OpenCode , OpenHands"
+      ],
+      [
+        "Skills (capability bundles)",
+        "SKILL.md directories with YAML frontmatter",
+        "9 systems (all but Aider , Mini-SWE-Agent )"
+      ],
+      [
+        "Conditional Activation",
+        "Skills/tools gated by environment or file paths",
+        "Claude Code ( paths ), OpenHands ( PathTrigger ), OpenClaw ( requires )"
+      ],
+      [
+        "Turn-Level Checkpoint",
+        "Filesystem snapshots with rewind and file restoration",
+        "Mistral Vibe (per user message), OpenCode (shadow-git, per step), Hermes (shadow-git store), Pi (conversation-only)"
+      ]
+    ]
+  },
+  "S13.T12": {
+    "caption": "Table 12 : Catalog of 29 recurring architectural patterns (2/2): the twelve patterns new to the July corpus.",
+    "rows": [
+      [
+        "Pattern",
+        "Description",
+        "Used By"
+      ],
+      [
+        "Agent-Maintained Memory",
+        "Background sub-agent extracts and consolidates cross-session memory",
+        "Codex (two-phase, git-baselined); human-gated variant in Gemini CLI (patch inbox)"
+      ],
+      [
+        "Outer Verification Loop",
+        "Scaffold-level judge/guard validating completion, outside the turn loop",
+        "OpenHands ( /goal judge + critics), Hermes (verify-on-stop)"
+      ],
+      [
+        "Self-Improving Skill Loop",
+        "Agent authors, patches, and curates its own capability bundles",
+        "Hermes ; partial: Gemini CLI (skill-extraction inbox)"
+      ],
+      [
+        "Lineage Compaction",
+        "Compaction as session rotation with searchable ancestry chain",
+        "Hermes"
+      ],
+      [
+        "Session-Tree Version Control",
+        "Append-only entry tree with movable head; fork/rewind/branch summaries",
+        "Pi ; OpenHands (conversation tree)"
+      ],
+      [
+        "Minimal-Core / Extension-Host",
+        "Safety, sandbox, sub-agents, plan mode relocated to a runtime event bus",
+        "Pi"
+      ],
+      [
+        "Client/Server Harness",
+        "Embedded API server; every UI (TUI, web, IDE, CI) is a client",
+        "OpenCode ; OpenHands (agent-server)"
+      ],
+      [
+        "Model-Family Prompt Matrix",
+        "Distinct base prompts dispatched per model family/generation",
+        "Codex (server catalog), OpenCode (9 prompts), Hermes (gated blocks)"
+      ],
+      [
+        "Cache-Dialect Fanout",
+        "All providers’ cache-control dialects emitted simultaneously",
+        "OpenCode"
+      ],
+      [
+        "Syntax-Aware Command Permissioning",
+        "Commands parsed (tree-sitter) and grants scoped by argument arity",
+        "OpenCode ; Mistral Vibe (parse-validation), Hermes (deobfuscated matching)"
+      ],
+      [
+        "Untrusted-Content Delimiting",
+        "Tool/web results wrapped in taint markers with delimiter defanging",
+        "Hermes , OpenHands ( <UNTRUSTED_CONTENT> )"
+      ],
+      [
+        "Harness Mimicry",
+        "Client presents a first-party harness’s identity (headers, prompt opening, tool-name casing) to ride its subscription OAuth backend",
+        "Pi (Claude Code identity on Anthropic OAuth; ChatGPT-plan Codex backend)"
+      ]
+    ]
+  },
+  "S13.T13": {
+    "caption": "Table 13 : Code-retrieval mechanisms used by each system, in lieu of vector-based RAG (July 2026).",
+    "rows": [
+      [
+        "System",
+        "Embeddings used?",
+        "Code-retrieval mechanism"
+      ],
+      [
+        "OpenHands",
+        "No",
+        "GrepTool / GlobTool + terminal; context-file ingestion (AGENTS.md, .cursorrules); tree-sitter no longer present in the SDK"
+      ],
+      [
+        "Aider",
+        "Optional /help extra only (doc-RAG over aider’s own docs)",
+        "RepoMap : tree-sitter symbol extraction with token-budget-constrained PageRank-style ranking"
+      ],
+      [
+        "Claude Code",
+        "No",
+        "ripgrep keyword search + BashTool + on-demand file Read; CLAUDE.md auto-discovery"
+      ],
+      [
+        "Codex",
+        "No",
+        "Rust-native file search; AGENTS.md root-to-cwd concatenation"
+      ],
+      [
+        "Gemini CLI",
+        "No",
+        "Bundled ripgrep + glob tools; GEMINI.md auto-discovery; MEMORY.md project index; JIT subdirectory context"
+      ],
+      [
+        "Mistral Vibe",
+        "No",
+        "ripgrep + tree-sitter (bash parsing) + filesystem search; git status injection; JIT nested AGENTS.md"
+      ],
+      [
+        "Mini-SWE-Agent",
+        "No",
+        "Grep-based search via shell tools"
+      ],
+      [
+        "Hermes",
+        "Opt-in memory plugins only",
+        "ripgrep-backed search_files ; SQLite FTS5 (BM25 + trigram) over session history ; LSP for post-write diagnostics only; no repo map"
+      ],
+      [
+        "Pi",
+        "No",
+        "Auto-downloaded ripgrep + fd binaries (latest release; system binaries preferred) behind grep / find tools; ancestor-walk context files; session search is a deterministic linear scan"
+      ],
+      [
+        "OpenCode",
+        "No",
+        "Bundled ripgrep ( grep / glob , 100-result cap); ~25 auto-downloaded LSP servers feed diagnostics (no persistent index); lazy nested AGENTS.md attach"
+      ],
+      [
+        "OpenClaw",
+        "Default hybrid memory search (sqlite-vec KNN + FTS5/BM25; OpenAI embedder by default, local GGUF opt-in) for conversation memory only , never code",
+        "N/A for code retrieval; standard filesystem APIs"
+      ]
+    ]
+  },
+  "S13.T14": {
+    "caption": "Table 14 : Main-agent ↔ sub-agent communication and protocol placement (July 2026).",
+    "rows": [
+      [
+        "System",
+        "Main ↔ sub-agent",
+        "Protocol roles",
+        "Sub-agents cross-proc.?"
+      ],
+      [
+        "Claude Code",
+        "AgentTool function call + context fork + XML notifications",
+        "None at agent layer (ACP served by a separate adapter binary)",
+        "No"
+      ],
+      [
+        "Codex",
+        "Session input queue with mailbox phases; typed records",
+        "None at agent layer ( codex-acp adapter external)",
+        "No"
+      ],
+      [
+        "Gemini CLI",
+        "invoke_agent behind local/remote session protocol",
+        "A2A server (mesh role)",
+        "No (internal)"
+      ],
+      [
+        "Mistral Vibe",
+        "task tool, in-process asyncio",
+        "ACP server (editor role; rewind over protocol)",
+        "No"
+      ],
+      [
+        "OpenHands",
+        "Task/delegate tools, concurrent threads",
+        "ACP client/host : rival harnesses as step() backends",
+        "No (own sub-agents)"
+      ],
+      [
+        "Hermes",
+        "In-process thread forks; swarm via SQLite blackboard subprocesses",
+        "ACP server (editors) and client (Copilot CLI as model backend)",
+        "Swarm: yes (DB, not protocol)"
+      ],
+      [
+        "Pi",
+        "Extension spawns OS processes, JSONL over stdio",
+        "Proprietary JSONL RPC ( ~30 commands) for embedding; ACP/A2A/MCP absent by design",
+        "Yes (ext.; JSONL, not ACP)"
+      ],
+      [
+        "OpenCode",
+        "task tool, in-process child sessions",
+        "ACP server (agent side, stdio ndjson)",
+        "No"
+      ],
+      [
+        "OpenClaw",
+        "ACP session spawn over RPC (child process)",
+        "Same ACP inward and outward",
+        "Yes"
+      ]
+    ]
+  },
+  "S14.T15": {
+    "caption": "Table 15 : The harness–framework merger, July 2026: named, versioned, installable artifacts.",
+    "rows": [
+      [
+        "Direction",
+        "Artifact",
+        "What it is"
+      ],
+      [
+        "Harness → framework",
+        "Claude Agent SDK [ 38 ]",
+        "“Claude Code as a library”: the same tools, loop, context management, hooks, and subagents, importable in Python/TypeScript; plus a hosted Managed Agents API"
+      ],
+      [
+        "",
+        "openai-codex SDK",
+        "pip install openai-codex : start Codex threads, run turns, stream progress, control workspace access; Python/TypeScript, shipped in the Codex repo"
+      ],
+      [
+        "",
+        "OpenHands agent SDK",
+        "The V1 restructuring is an SDK-ization: the agent became openhands-sdk / openhands-tools packages plus an agent server"
+      ],
+      [
+        "",
+        "Pi packages / OpenCode SDK",
+        "pi-agent-core importable + RPC mode; generated @opencode-ai/sdk over the embedded server"
+      ],
+      [
+        "Framework → harness",
+        "Deep Agents [ 37 ]",
+        "LangChain’s harness on LangGraph: todo planning, virtual filesystem with permissions, subagents, SKILL.md skills with progressive disclosure, AGENTS.md memory"
+      ],
+      [
+        "",
+        "Pydantic AI Harness [ 39 ]",
+        "“The batteries” for pydantic-ai: composable capabilities (filesystem, code mode in a Rust-sandboxed interpreter) that turn a framework agent into a coding agent"
+      ],
+      [
+        "",
+        "Strands harness-sdk [ 40 ]",
+        "The merger in a repository name: a framework organization shipping “the agent harness itself” as an SDK"
+      ]
+    ]
+  },
+  "A1.T16": {
+    "caption": "Table 16 : Rhetorical content of the eleven system prompts (July 2026).",
+    "rows": [
+      [
+        "System",
+        "Verbosity rule",
+        "Anti-gold-plate",
+        "Commit policy",
+        "Emoji rule",
+        "Emphasis style"
+      ],
+      [
+        "Claude Code",
+        "quantified ( ≤ 25/100 w; internal A/B)",
+        "explicit",
+        "no-commit unless asked",
+        "conditional",
+        "IMPORTANT: / NEVER tags"
+      ],
+      [
+        "Codex",
+        "qualitative (5.2); persona-driven (5.6)",
+        "explicit (5.2); dropped (5.6)",
+        "no-commit (5.2); feature-flag (5.6)",
+        "none",
+        "NEVER tags"
+      ],
+      [
+        "Gemini CLI",
+        "via snippet gating",
+        "implicit",
+        "implicit",
+        "none",
+        "feature-gated sections"
+      ],
+      [
+        "Mistral Vibe",
+        "strict ( < 150 w)",
+        "explicit",
+        "reversed : commits expected, signature trailer",
+        "strict ban",
+        "overridability contract (structural)"
+      ],
+      [
+        "OpenHands",
+        "none",
+        "explicit (file-suffix)",
+        "commits taught; push/PR gated",
+        "none",
+        "XML role tags"
+      ],
+      [
+        "Aider",
+        "“few short sentences”",
+        "implicit",
+        "silent",
+        "silent",
+        "format examples"
+      ],
+      [
+        "Mini-SWE-Agent",
+        "structural (1 cmd/turn)",
+        "silent",
+        "silent",
+        "silent",
+        "<important> XML"
+      ],
+      [
+        "Hermes",
+        "qualitative (“lead with the change”)",
+        "explicit",
+        "no-commit/push/rewrite unless asked",
+        "none",
+        "MUST / NEVER + exemplar pairs; model-gated XML"
+      ],
+      [
+        "Pi",
+        "single bullet (“Be concise”)",
+        "silent (delegated)",
+        "silent (delegated)",
+        "silent",
+        "XML data tags only"
+      ],
+      [
+        "OpenCode",
+        "quantified ( < 4 lines; model-dep.)",
+        "explicit",
+        "no-commit unless asked",
+        "conditional; GPT prompt bans",
+        "IMPORTANT: / NEVER + <system-reminder>"
+      ],
+      [
+        "OpenClaw",
+        "per-agent",
+        "inherited",
+        "inherited",
+        "inherited",
+        "per-agent"
+      ]
+    ]
+  },
+  "A1.T17": {
+    "caption": "Table 17 : Advanced API features used by each system (July 2026).",
+    "rows": [
+      [
+        "System",
+        "Prompt caching",
+        "Ext. thinking",
+        "Reasoning effort",
+        "Model routing",
+        "WebSocket",
+        "Vision",
+        "Cost tracking"
+      ],
+      [
+        "OpenHands",
+        "Partial (cache tiers + markers)",
+        "✓",
+        "✓",
+        "✓(RouterLLM)",
+        "✗",
+        "✓",
+        "Per-model"
+      ],
+      [
+        "Aider",
+        "Partial",
+        "✗",
+        "✗",
+        "✗",
+        "✗",
+        "Opt.",
+        "Tok+$"
+      ],
+      [
+        "Claude Code",
+        "Full (Blake2b boundary)",
+        "✓",
+        "✗",
+        "✗",
+        "✗",
+        "✓",
+        "Tok+$"
+      ],
+      [
+        "Codex",
+        "Partial ( thread_id key)",
+        "✗",
+        "✓(to max/ultra)",
+        "✗",
+        "✓",
+        "✓",
+        "Per-turn"
+      ],
+      [
+        "Gemini CLI",
+        "✗(server-side)",
+        "✓",
+        "✗",
+        "✓(router)",
+        "✗",
+        "✓",
+        "OTel/Tok+$"
+      ],
+      [
+        "Mistral Vibe",
+        "Partial",
+        "✓",
+        "✓(5 levels)",
+        "✗",
+        "✗",
+        "✓",
+        "OTel/Per-sess."
+      ],
+      [
+        "Mini-SWE-Agent",
+        "Partial",
+        "✗",
+        "✗",
+        "✗",
+        "✗",
+        "Opt.",
+        "litellm"
+      ],
+      [
+        "Hermes",
+        "Full (provider-agnostic markers + prefix normalization)",
+        "✓",
+        "✓(5 levels, per-provider translation)",
+        "Failover chains only",
+        "✗",
+        "✓",
+        "Tok+$, typed provenance"
+      ],
+      [
+        "Pi",
+        "Full (breakpoints + TTL tiers + waste audit)",
+        "✓(7-level scale)",
+        "✓(10 dialects)",
+        "✗(by design)",
+        "✓(Codex backend)",
+        "✓",
+        "Tok+$, tiered pricing"
+      ],
+      [
+        "OpenCode",
+        "Full (6-dialect fanout + session key)",
+        "✓",
+        "✓(date-gated variants)",
+        "Small-model selection only",
+        "Exp. flag",
+        "✓",
+        "Tok+$ (Decimal)"
+      ],
+      [
+        "OpenClaw",
+        "Partial",
+        "✓",
+        "✗",
+        "✗",
+        "✓",
+        "✓",
+        "Per-prov."
+      ]
+    ]
+  },
+  "A1.T18": {
+    "caption": "Table 18 : Head-to-head pipeline comparison: Claude Code vs. Codex .",
+    "rows": [
+      [
+        "Stage",
+        "Claude Code",
+        "Codex"
+      ],
+      [
+        "Prompt assembly",
+        "12–15 named sections. Static prefix (identity, rules, tools) cached via Blake2b hash; dynamic suffix (env, memory, MCP) recomputed per-turn. SYSTEM_PROMPT_DYNAMIC_BOUNDARY separates the two.",
+        "Per-model prompts as server-delivered catalog data ( models.json base_instructions , remote-refreshed with bundled fallback); personality-templated. AGENTS.md injected via root-to-cwd concatenation (nested content appended last)."
+      ],
+      [
+        "Tool exposure",
+        "43 tools, but only a subset loaded initially. Deferred tools discovered on-demand via ToolSearchTool (keyword search + select: syntax). Reduces prompt tokens by ~40%.",
+        "25–30 built-ins; schemas converted to OpenAI Function format via create_tools_json_for_responses_api() . Deferred loading now mirrored: defer_loading flags (MCP tools by default) + BM25 tool_search ."
+      ],
+      [
+        "API protocol",
+        "Anthropic Messages API. SSE streaming with content_block_{start,delta,stop} events. Extended thinking via budget_tokens .",
+        "OpenAI Responses API. WebSocket primary, SSE fallback. Connection prewarm ( generate=false ). Turn state via x-codex-turn-state header. Reasoning effort (minimal–xhigh, plus max/ultra; ultra adds automatic delegation)."
+      ],
+      [
+        "Tool dispatch",
+        "partitionToolCalls() : single-pass reduce partitions by isConcurrencySafe() . Consecutive safe tools batched; unsafe tools solo. Max 10 concurrent via semaphore.",
+        "FuturesOrdered through a dedicated ToolCallRuntime ; per-tool supports_parallel flag (default false) gates an execution lock—concurrency-unsafe tools run exclusively."
+      ],
+      [
+        "Permission",
+        "3 layers: (1) PreToolUse hooks (static pattern match), (2) LLM risk classifier, (3) interactive dialog. Sub-agents skip layer 3.",
+        "4 layers: (1) ExecPolicy Starlark rules, (2) lifecycle hooks ( Claude Code -compatible vocabulary), (3) Guardian LLM approval reviewer (fail-closed), (4) OS-level sandbox enforcement."
+      ],
+      [
+        "Execution",
+        "Host execution with an opt-in OS sandbox (Anthropic sandbox-runtime : Bubblewrap/Seatbelt, network restrictions, dangerouslyDisableSandbox escape hatch); git worktrees for branch isolation.",
+        "Sandboxed execution. Vendored Bubblewrap (Linux; Landlock legacy fallback), Seatbelt (macOS), restricted tokens (Windows)."
+      ],
+      [
+        "Compaction",
+        "Triggered when remaining context drops below AUTOCOMPACT_BUFFER_TOKENS (13 K), with an env-overridable percent threshold. Image stripping, message grouping by API round, LLM summarization, SystemCompactBoundaryMessage . Post-cleanup: restore 5 files (50 K token budget).",
+        "model_auto_compact_token_limit configurable. Local or cloud compaction via /responses/compact ; rollout token budgets with turn aborts."
+      ]
+    ]
+  }
+}
