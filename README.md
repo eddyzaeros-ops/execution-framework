@@ -48,8 +48,24 @@
 
 ---
 
+### 📂 3. [專業領域AI解決方案評估](file:///./專業領域AI解決方案評估/README.md)
+本對話系列深度剖析專業領域（特別是國防科研與高度機敏封閉環境）下四種 AI 技術路線、地端模型選型、Sub-Agent 5W1H 編排架構、Git + Obsidian 第二大腦記憶工程、4K 雙頁資訊圖表、OWASP AISVS 1.0 技術標準與 37 頁定稿提報簡報。
+
+| 輪次代號 | 研析與模組主題 | 版本 | 核心產出物收納子目錄 | 模組直達連結 |
+| :--- | :--- | :---: | :--- | :--- |
+| **Turn 01** | 專業領域四種路線評估報告 | `v1.0.0` | `Turn-01-專業領域四種路線評估報告/docs/`（四路線評估報告） | [Turn-01 README](file:///./專業領域AI解決方案評估/Turn-01-專業領域四種路線評估報告/README.md) |
+| **Turn 02** | 國防地端環境限制與落地戰略 | `v1.1.0` | `Turn-02-國防地端環境限制與落地戰略/docs/`（國防地端版報告） | [Turn-02 README](file:///./專業領域AI解決方案評估/Turn-02-國防地端環境限制與落地戰略/README.md) |
+| **Turn 03** | 權威專家觀點與Harness生態系調研 | `v1.2.0` | `Turn-03-權威專家觀點與Harness生態系調研/assets/`, `code/`（雷達圖、共識圖、曲線圖） | [Turn-03 README](file:///./專業領域AI解決方案評估/Turn-03-權威專家觀點與Harness生態系調研/README.md) |
+| **Turn 04** | 實戰架構深化_Gemma31B與Sub-Agent | `v1.3.0` | `Turn-04-實戰架構深化_Gemma31B與Sub-Agent/code/`（Gemma 推論與 5W1H 腳本） | [Turn-04 README](file:///./專業領域AI解決方案評估/Turn-04-實戰架構深化_Gemma31B與Sub-Agent/README.md) |
+| **Turn 05** | 第二大腦級記憶架構_Git與Obsidian | `v1.4.0` | `Turn-05-第二大腦級記憶架構_Git與Obsidian/code/`（三層記憶工程架構） | [Turn-05 README](file:///./專業領域AI解決方案評估/Turn-05-第二大腦級記憶架構_Git與Obsidian/README.md) |
+| **Turn 06** | 實體隔離運作全景4K雙頁資訊圖表 | `v1.5.0` | `Turn-06-實體隔離運作全景4K雙頁資訊圖表/assets/`, `code/`（`fig.png` + `doc.png`） | [Turn-06 README](file:///./專業領域AI解決方案評估/Turn-06-實體隔離運作全景4K雙頁資訊圖表/README.md) |
+| **Turn 07** | 國際權威標準_CISA_DARPA與AISVS評測 | `v1.6.0` | `Turn-07-國際權威標準_CISA_DARPA與AISVS評測/pptx/`（37 頁完整定稿簡報）, `code/` | [Turn-07 README](file:///./專業領域AI解決方案評估/Turn-07-國際權威標準_CISA_DARPA與AISVS評測/README.md) |
+| **Turn 08** | Obsidian思維知識庫沉澱與圖表優化 | `v2.0.0` | `Turn-08-Obsidian思維知識庫沉澱與圖表優化/docs/`（00～06 完整 Obsidian 筆記模組） | [Turn-08 README](file:///./專業領域AI解決方案評估/Turn-08-Obsidian思維知識庫沉澱與圖表優化/README.md) |
+
+---
+
 ## 🏷️ 版本管理 (Version Tracking)
 
-- **當前版本**：`v2.1.0`
+- **當前版本**：`v2.2.0`
 - **發布狀態**：正式落實「GitHub 專案根資料夾不存放對話生成文件」與「該輪對話產生的文件必須存放在該輪對話資料夾下」治理鐵律。
 - **管理規範**：遵循全域 `project-dialogue-manager` 最新標準規範。
