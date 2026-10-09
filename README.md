@@ -3,15 +3,18 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![Python: 3.12+](https://img.shields.io/badge/Python-3.12+-3776AB.svg?logo=python&logoColor=white)](https://python.org)
 [![Resolution: 4K UHD](https://img.shields.io/badge/Resolution-4K%20UHD%20(3840x2160)-success.svg)]()
-[![Governance: Dedicated Repo](https://img.shields.io/badge/Governance-Dedicated%20Repo-brightgreen.svg)]()
+[![Governance: Clean Root Policy](https://img.shields.io/badge/Governance-Clean%20Root%20Policy-brightgreen.svg)]()
 
-本儲存庫為 **Antigravity 2.0 / 執行框架** 專案的獨立專屬代碼庫，遵循全域「專案對話管理」標準治理體系：落實「一專案一獨立儲存庫 (One Repo per Project)」，並將專案系列對話依「主題名稱資料夾」結構化收納，完整保存每輪使用者提問需求、文件摘要、版本追蹤與差異留痕。
+本儲存庫為 **Antigravity 2.0 / 執行框架** 專案的獨立專屬代碼庫，遵循全域「**專案對話管理 (project-dialogue-manager)**」核心鐵律：
+1. **GitHub 專案根資料夾下，絕對不存放對話生成的文件**（保持極簡純淨，僅保留 `.gitignore` 與全局 `README.md`）。
+2. **該輪對話產生的文件與資產，必須 100% 存放在該輪對話的資料夾子目錄中**（`Turn-XX/docs/`, `pptx/`, `code/`, `html/`, `assets/`）。
+3. **依專案對話主題名稱建立頂層資料夾**，落實系列對話之模組化收納與雙向審計留痕。
 
 ---
 
-## 💬 專案系列對話封裝 (Conversation-Named Modules)
+## 💬 專案系列對話主題導航 (Conversation-Named Directories)
 
-### 📂 [AI-Agent-SDK與Antigravity核心架構解析](file:///./AI-Agent-SDK與Antigravity核心架構解析/README.md)
+### 📂 1. [AI-Agent-SDK與Antigravity核心架構解析](file:///./AI-Agent-SDK與Antigravity核心架構解析/README.md)
 本對話系列深度剖析三大原廠 Agent SDK、Antigravity 2.0 引擎與開發生態系，並沉澱出 4K 雙頁資訊圖表視覺系統與全域專案治理規範。
 
 | 輪次代號 | 研析主題 | 版本 | 使用者核心指令與關鍵成果 | 輪次模組導航 |
@@ -29,49 +32,24 @@
 
 ---
 
-## 📂 專案檔案清單與資產盤點 (Artifacts Inventory)
+### 📂 2. [AI-Agent-Harness框架比較與論文解析](file:///./AI-Agent-Harness框架比較與論文解析/README.md)
+本對話系列（2026-09-25 ～ 10-09）完成 AI Agent Harness 量化比較研析、Obsidian/HTML 知識庫、整合提報簡報與「pptx 樣板一」Skill，以及 arXiv:2609.00006v1《Harness Engineering》論文解析簡報（經 Opus 逐項查證，42 頁定稿）。
 
-### 1. 📊 4K 雙頁資訊圖表 (2-Page Infographic System)
-- **`fig.png`**：AI Agent 生態架構流程圖（4K 16:9 滿版純英文流程：The Brain & Orchestration, Collaboration & Engine, Workspace & Interface）。
-- **`doc.png`**：AI Agent 核心層級與協同架構解析面板（4K 16:9 滿版大字體，微軟正黑體排版）。
-- **`fig_agy2.png`**：VS Code vs Antigravity IDE vs Antigravity 2.0 概念與工作流對比圖（4K 16:9 滿版純英文流程）。
-- **`doc_agy2.png`**：三大工具核心維度解析面板（4K 16:9 滿版大字體，高清晰中文解析）。
-- **`AI_Agent_Ecosystem_Architecture_4K.png`**：一體化海報版存檔。
-
-### 2. 📑 專業研析報告 (Word / Docx)
-- **`Opus 研析報告.docx`**：Anthropic Claude 3 Opus / 3.5 Sonnet 推理模型深入評估。
-- **`Gemini 研析報告補充.docx`**：Google Gemini 長上下文模型在 Agent 架構中的應用。
-
-### 3. 🖥️ 專案簡報與投影片 (PowerPoint / PPTX)
-- **`1001 Harness 綜整報告.pptx`**：智能體駕馭工程全景與技術架構簡報。
-- **`Harness Engineering 論文解析.pptx`**：論文《智能體駕馭工程：分析Claude Code技術實現》專題投影片（含自動提取之論文圖表與資料）。
-- **`專業領域AI解決方案評估報告.pptx`**：企業級與專業領域地端 AI 解決方案完整評估。
-- **`國防研發AI方案評估報告_地端版.pptx`**：針對高資安隔離環境的地端 LLM 落地架構簡報。
-
-### 4. 🐍 自動化排版與圖形生成腳本 (Python Scripts)
-- **`generate_fullscreen_images.py`**：依據 `2-page-infographic` 全域技能規範生成 4K 滿版大字體圖檔。
-- **`generate_agy2_images.py`**：生成 VS Code 與 Antigravity 工具對照之 4K 雙頁圖檔。
-- **`draw_fig_4k.py`** / **`draw_matplotlib_figures.py`**：高解析向量統計圖繪製。
-- **`parse_tables.py`** / **`parse_figures.py`**：論文 HTML 圖表自動擷取與解析。
+| 輪次代號 | 研析與模組主題 | 版本 | 核心產出物收納子目錄 |
+| :--- | :--- | :---: | :--- |
+| **Turn 01** | Harness 量化比較研析報告 | `v1.0.0` | `Turn-01-Harness量化比較研析報告/docs/`（Opus / Gemini Word 審計報告） |
+| **Turn 02** | Obsidian 紀錄與文獻綜整 HTML | `v1.1.0` | `Turn-02-Obsidian紀錄與文獻綜整HTML/html/`, `assets/`, `code/` |
+| **Turn 03** | 整合提報 PPTX 設計迭代 | `v1.2.0` | `Turn-03-整合提報PPTX設計迭代/pptx/`（1001 Harness 綜整報告等簡報） |
+| **Turn 04** | pptx 樣板一全域 Skill | `v1.3.0` | `pptx-template-1` 全域技能規範與排版標準 |
+| **Turn 05** | arXiv 論文解析 PPTX | `v2.0.0` | `Turn-05-arXiv論文解析PPTX/pptx/`, `code/`, `assets/` |
+| **Turn 06** | 文獻關聯釐清與 Context 壓縮 | `v2.0.1` | 文獻綜整、Context Compaction 與專家觀點洞察 |
+| **Turn 07** | Opus 論文查證與 42 頁定稿 | `v2.1.0` | 42 頁高規格定稿簡報與逐項查證紀錄 |
+| **Turn 08** | 專案對話管理 | `v2.1.1` | 全對話歷程 Obsidian / GitHub 結構化留痕與治理 |
 
 ---
 
 ## 🏷️ 版本管理 (Version Tracking)
 
-- **當前版本**：`v2.0.0`
-- **發布狀態**：正式落實「一專案一獨立儲存庫」與「主題對話資料夾封裝」治理架構。
-- **管理規範**：遵循全域 `project-dialogue-manager` 核心鐵律。
-
-### 📂 [AI-Agent-Harness框架比較與論文解析](./AI-Agent-Harness框架比較與論文解析/README.md)
-本對話系列（2026-09-25 ～ 10-09）完成 AI Agent Harness 量化比較研析、Obsidian/HTML 知識庫、整合提報簡報與「pptx 樣板一」Skill，以及 arXiv:2609.00006v1《Harness Engineering》論文解析簡報（經 Opus 逐項查證，42 頁定稿）。
-
-| 輪次 | 主題 | 版本 |
-| :--- | :--- | :---: |
-| Turn 01 | Harness 量化比較研析報告 | `v1.0.0` |
-| Turn 02 | Obsidian 紀錄與文獻綜整 HTML | `v1.1.0` |
-| Turn 03 | 整合提報 PPTX 設計迭代 | `v1.2.0` |
-| Turn 04 | pptx 樣板一全域 Skill | `v1.3.0` |
-| Turn 05 | arXiv 論文解析 PPTX | `v2.0.0` |
-| Turn 06 | 文獻關聯釐清與 Context 壓縮 | `v2.0.1` |
-| Turn 07 | Opus 論文查證與 42 頁定稿 | `v2.1.0` |
-| Turn 08 | 專案對話管理 | `v2.1.1` |
+- **當前版本**：`v2.1.0`
+- **發布狀態**：正式落實「GitHub 專案根資料夾不存放對話生成文件」與「該輪對話產生的文件必須存放在該輪對話資料夾下」治理鐵律。
+- **管理規範**：遵循全域 `project-dialogue-manager` 最新標準規範。
